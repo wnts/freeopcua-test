@@ -1,0 +1,50 @@
+class ObjectType
+******************
+Each object type is represented by a subclass of this class.
+When such a subclass is instantiated, the ObjectType that it represents (the complete objecttype, including variables and their properties, methods and references)
+is constructed in the address space.
+
+This object has methods to retrieve the instance declarations of the
+variables of the object type (return type: VariableType) 
+
+class Object
+******************
+Each object is implemented by a subclass of this class.
+When such a subclass is instantiated, the Object that it represents is
+constructed in the address space.
+
+This object has methods to retrieve the variables of the 
+object (return type: Variable)
+
+class VariableType
+******************
+Each VariableType (instance declaration) is represented by a subclass of this class.
+When such a subclass is instantiated, the VariableType (instance declaration) that it represents
+is constructed in the address space.
+
+class Variable
+******************
+Each Variable is represented by a subclass of this class.
+When such a subclass is instantiated, the Variable that it represents
+is constructed in the address space.
+
+
+Example of how it should work
+*******************************
+Say we have two classes: TemperatureSensor, which derives from Object and TemperatureSensorType, which derives from ObjectType.
+When we instantiate TemperatureSensor the following happens:
+
+1. If necesarry, create the TemperatureSensorType in the address space by instantiating TemperatureSensorType class.
+2. Create all nodes and references in address space to get a complete TemperatureSensor Object.
+
+How it will work (for now)
+***************************************
+The TemperatureSensor has a variable of AnalogItemType, which is already present in the address space.
+It is put in the address space by another mechanism than described above (in the freeOpcUa lib itself), so there are no C++ classes
+representing these nodes. For now we will just refrain from using the *Type classes and just
+create the typenodes by hand in the constructor of the TemperatureSensor class.
+
+// todo : write some thoughts about replacing the currently used mechanism to populate standard address space
+//		  with the above one.
+
+

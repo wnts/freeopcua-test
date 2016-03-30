@@ -1,7 +1,9 @@
 #include <unistd.h>
 #include "opcserver.h"
 #include "nmtemperature.h"
-#include "temperaturesensorobject.h"
+#include "temperaturesensor.h"
+#include "objecttype.h"
+#include "variabletype.h"
 
 using namespace OpcUa;
 using namespace std;
@@ -14,10 +16,10 @@ int main(void)
 	OpcServer server(szCwd);
 	NmTemperature * pMyNodeManager = new NmTemperature();
 	server.addNodeManager(pMyNodeManager);
-
 	server.Start();
-	string sname = "TemperatureSensor1";
-	TemperatureSensorObject TemperatureSensor1(sname, NodeId(sname, pMyNodeManager->getNamespaceIdx()), pMyNodeManager);
+	string tempSensorName = "TemperatureSensor1";
+	TemperatureSensor TemperatureSensor1(NodeId(tempSensorName, pMyNodeManager->getNamespaceIdx()), tempSensorName, pMyNodeManager);
+
 
 	getchar();
 	server.Stop();
