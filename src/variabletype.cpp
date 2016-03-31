@@ -3,12 +3,12 @@
 using namespace OpcUa;
 
 VariableType::VariableType(OpcUa::NodeId nodeId,
-					   OpcUa::LocalizedText browseName,
-					   OpcUa::LocalizedText displayName,
-					   OpcUa::LocalizedText description,
-					   bool isAbstract,
-					   NodeManager * pNodeManager)
-: Node(nodeId, browseName, displayName, description, pNodeManager)
+					   	   OpcUa::LocalizedText browseName,
+						   OpcUa::LocalizedText displayName,
+						   OpcUa::LocalizedText description,
+						   bool isAbstract,
+						   NodeManager * pNodeManager)
+: TypeNode(nodeId, browseName, displayName, description, isAbstract, pNodeManager)
 {
 	AddNodesItem newVarTypeNode;
 	VariableTypeAttributes newVarTypeNodeAttrs;

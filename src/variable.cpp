@@ -10,7 +10,8 @@ Variable::Variable(OpcUa::NodeId nodeId,
 			       OpcUa::LocalizedText browseName,
 			       OpcUa::LocalizedText displayName,
 			       OpcUa::LocalizedText description,
-			       NodeManager * pNodeManager)
+			       NodeManager * pNodeManager,
+				   OpcUa::NodeId dataType)
 : TypedNode(nodeId, browseName, displayName, description, pNodeManager)
 {
 	AddNodesItem newVarNode;
@@ -23,6 +24,7 @@ Variable::Variable(OpcUa::NodeId nodeId,
 
 	newVarAttrs.DisplayName = displayName;
 	newVarAttrs.Description = description;
+	newVarAttrs.Type = dataType;
 	//newVarAttrs.Type = ObjectId::Double;
 	newVarNode.Attributes = newVarAttrs;
 

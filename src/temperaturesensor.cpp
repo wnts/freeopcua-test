@@ -20,17 +20,15 @@ TemperatureSensor::TemperatureSensor(NodeId nodeId, string name, NodeManager * p
 {
 	createTypes(pNodeManager);
 	setType(s_pObjType);
+
 	// create member Variable Temperature
 	string varName = "Temperature";
-	AnalogItem Temperature(NodeId(varName, pNodeManager->getNamespaceIdx()),
-			 LocalizedText(varName),
-			 LocalizedText(varName),
-			 LocalizedText(varName),
-			 pNodeManager);
-	Temperature.addReference(ObjectId::RootFolder, Temperature.getNodeId(), ReferenceId::Organizes, true);
-
-
-
+	m_pTemperature =  std::make_shared<AnalogItem>(NodeId(varName, pNodeManager->getNamespaceIdx()),
+												   LocalizedText(varName),
+												   LocalizedText(varName),
+												   LocalizedText(varName),
+												   pNodeManager);
+	m_pTemperature->addReference(this->getNodeId(), m_pTemperature->getNodeId(), ReferenceId::HasComponent, true);
 }
 
 TemperatureSensor::~TemperatureSensor()
@@ -78,7 +76,6 @@ void TemperatureSensor::createTypes(NodeManager * pNodeManager)
 	temperatureInstDeclAttrs.UserAccessLevel = (VariableAccessLevel) 3;
 	temperatureInstDecl.Attributes = temperatureInstDeclAttrs;
 	pNodeManager->addNodes(vector<AddNodesItem>{temperatureInstDecl});
-
 }
 
 

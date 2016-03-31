@@ -1,17 +1,17 @@
 #ifndef SRC_VARIABLETYPE_H_
 #define SRC_VARIABLETYPE_H_
-#include "node.h"
+#include "typenode.h"
 #include "nodemanager.h"
 
-class VariableType : public ::Node
+class VariableType : public TypeNode
 {
 	public:
 		VariableType(OpcUa::NodeId nodeId,
-			OpcUa::LocalizedText browseName,
-			OpcUa::LocalizedText displayName,
-			OpcUa::LocalizedText description,
-			bool isAbstract,
-			NodeManager * pNodeManager);
+					 OpcUa::LocalizedText browseName,
+					 OpcUa::LocalizedText displayName,
+					 OpcUa::LocalizedText description,
+					 bool isAbstract,
+					 NodeManager * pNodeManager);
 		OpcUa::NodeClass getNodeClass();
 	private:
 		bool isAbstract = false;
