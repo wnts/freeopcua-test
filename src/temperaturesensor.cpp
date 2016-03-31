@@ -19,6 +19,7 @@ TemperatureSensor::TemperatureSensor(NodeId nodeId, string name, NodeManager * p
 	setType(s_pObjType);
 	// create member Variable Temperature
 
+
 }
 
 TemperatureSensor::~TemperatureSensor()
