@@ -30,6 +30,7 @@ TemperatureSensor::TemperatureSensor(NodeId nodeId, string name, NodeManager * p
 	Temperature.addReference(ObjectId::RootFolder, Temperature.getNodeId(), ReferenceId::Organizes, true);
 
 
+
 }
 
 TemperatureSensor::~TemperatureSensor()
