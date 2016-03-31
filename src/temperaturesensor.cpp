@@ -1,6 +1,9 @@
+#include <string>
+
 #include "temperaturesensor.h"
 #include "nodemanager.h"
 #include "objecttype.h"
+#include "analogitem.h"
 
 using namespace std;
 using namespace OpcUa;
@@ -18,6 +21,14 @@ TemperatureSensor::TemperatureSensor(NodeId nodeId, string name, NodeManager * p
 	createTypes(pNodeManager);
 	setType(s_pObjType);
 	// create member Variable Temperature
+	string varName = "Temperature";
+	AnalogItem Temperature(NodeId(varName, pNodeManager->getNamespaceIdx()),
+			 LocalizedText(varName),
+			 LocalizedText(varName),
+			 LocalizedText(varName),
+			 pNodeManager);
+	Temperature.addReference(ObjectId::RootFolder, Temperature.getNodeId(), ReferenceId::Organizes, true);
+
 
 }
 

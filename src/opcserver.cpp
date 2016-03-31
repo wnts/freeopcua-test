@@ -32,58 +32,56 @@
 using namespace std;
 using namespace OpcUa;
 
-namespace OpcUa
+OpcServer::OpcServer()
 {
-  OpcServer::OpcServer()
+
+}
+
+OpcServer::OpcServer(const string& ConfigDir)
+{
+  pAddonsManager = Common::CreateAddonsManager();
+  Server::LoadConfiguration(ConfigDir, *pAddonsManager);
+}
+
+
+void OpcServer::addNodeManager(NodeManager * pNodeManager)
+{
+  nodeManagers.push_back(pNodeManager);
+  pNodeManager->setServer(*this);
+  if(bStarted)
   {
-
-  }
-
-  OpcServer::OpcServer(const string& ConfigDir)
-  {
-	  pAddonsManager = Common::CreateAddonsManager();
-	  Server::LoadConfiguration(ConfigDir, *pAddonsManager);
-  }
-
-
-  void OpcServer::addNodeManager(OpcUa::NodeManager * pNodeManager)
-  {
-	  nodeManagers.push_back(pNodeManager);
-	  pNodeManager->setServer(*this);
-	  if(bStarted)
-	  {
-		pNodeManager->Startup();
-		pNodeManager->afterStartup(pNodeManagementService);
-	  }
-  }
-
-  uint32_t OpcServer::AddNamespace(const string& NsUri)
-  {
-	  Node namespaceArray(pServiceRegistry->GetServer(), OpcUa::ObjectId::Server_NamespaceArray);
-	  std::vector<std::string> uris = namespaceArray.GetValue().As<std::vector<std::string>>();
-	  uint32_t index = uris.size() - 1;
-	  uris.push_back(NsUri);
-	  namespaceArray.SetValue(uris);
-
-	  return index;
-  }
-
-  void OpcServer::Start(void)
-  {
-	  pAddonsManager->Start();
-	  pServiceRegistry = pAddonsManager->GetAddon<Server::ServicesRegistry>(Server::ServicesRegistryAddonId);
-	  pNodeManagementService = pAddonsManager->GetAddon<OpcUa::NodeManagementServices>(OpcUa::Server::AddressSpaceRegistryAddonId);
-	  for(std::vector<OpcUa::NodeManager *>::iterator it = nodeManagers.begin(); it != nodeManagers.end(); it++)
-	  {
-		  (*it)->Startup();
-		  (*it)->afterStartup(pNodeManagementService);
-	  }
-
-	  bStarted = true;
-  }
-
-  void OpcServer::Stop(void)
-  {
-	  pAddonsManager->Stop();
+	pNodeManager->Startup();
+	pNodeManager->afterStartup(pNodeManagementService);
   }
 }
+
+uint32_t OpcServer::AddNamespace(const string& NsUri)
+{
+  Node namespaceArray(pServiceRegistry->GetServer(), OpcUa::ObjectId::Server_NamespaceArray);
+  std::vector<std::string> uris = namespaceArray.GetValue().As<std::vector<std::string>>();
+  uint32_t index = uris.size() - 1;
+  uris.push_back(NsUri);
+  namespaceArray.SetValue(uris);
+
+  return index;
+}
+
+void OpcServer::Start(void)
+{
+  pAddonsManager->Start();
+  pServiceRegistry = pAddonsManager->GetAddon<Server::ServicesRegistry>(Server::ServicesRegistryAddonId);
+  pNodeManagementService = pAddonsManager->GetAddon<OpcUa::NodeManagementServices>(OpcUa::Server::AddressSpaceRegistryAddonId);
+  for(std::vector<NodeManager *>::iterator it = nodeManagers.begin(); it != nodeManagers.end(); it++)
+  {
+	  (*it)->Startup();
+	  (*it)->afterStartup(pNodeManagementService);
+  }
+
+  bStarted = true;
+}
+
+void OpcServer::Stop(void)
+{
+  pAddonsManager->Stop();
+}
+

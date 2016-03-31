@@ -1,7 +1,7 @@
 #include "nodemanager.h"
 #include "opcserver.h"
 
-using namespace OpcUa;
+
 
 NodeManager::NodeManager(const std::string& nameSpaceURI)
 : nsUri(nameSpaceURI)
@@ -24,17 +24,17 @@ uint32_t NodeManager::getNamespaceIdx(void)
 	return nsIdx;
 }
 
-std::vector<OpcUa::AddNodesResult> NodeManager::addNodes(std::vector<AddNodesItem> nodes)
+std::vector<OpcUa::AddNodesResult> NodeManager::addNodes(std::vector<OpcUa::AddNodesItem> nodes)
 {
 	return pServer->pNodeManagementService->AddNodes(nodes);
 }
 
-std::vector<StatusCode> NodeManager::addReferences(std::vector<AddReferencesItem> references)
+std::vector<OpcUa::StatusCode> NodeManager::addReferences(std::vector<OpcUa::AddReferencesItem> references)
 {
 	return pServer->pNodeManagementService->AddReferences(references);
 }
 
-void NodeManager::setServer(OpcUa::OpcServer& server)
+void NodeManager::setServer(OpcServer& server)
 {
 	pServer = &server;
 }

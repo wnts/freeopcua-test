@@ -12,7 +12,7 @@
 #define Temperature_TemperatureSensorType_Temperature			1001
 #define Temperature_TemperatureSensorType_Temperature_EURange	1002
 
-class NmTemperature : public OpcUa::NodeManager {
+class NmTemperature : public NodeManager {
 	public:
 		NmTemperature();
 		virtual void afterStartup(OpcUa::NodeManagementServices::SharedPtr pNodeManagementService);

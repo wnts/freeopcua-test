@@ -1,7 +1,7 @@
 #include <vector>
 
 #include "object.h"
-#include "node.h"
+#include "typednode.h"
 #include "objecttype.h"
 
 using namespace std;
@@ -11,9 +11,10 @@ Object::Object(OpcUa::NodeId nodeId,
 			   OpcUa::LocalizedText browseName,
 			   OpcUa::LocalizedText displayName,
 			   OpcUa::LocalizedText description,
-			   NodeId objType,
+			   TypeNode& objType,
 			   NodeManager * pNodeManager)
-: Node(nodeId, browseName, displayName, description, pNodeManager)
+: TypedNode(nodeId, browseName, displayName, description, pNodeManager)
+
 {
 	AddNodesItem newObjNode;
 	ObjectAttributes newObjAttrs;
@@ -21,7 +22,7 @@ Object::Object(OpcUa::NodeId nodeId,
 	newObjNode.RequestedNewNodeId = nodeId;
 	newObjNode.BrowseName = QualifiedName(browseName.Text, pNodeManager->getNamespaceIdx());
 	newObjNode.Class = NodeClass::Object;
-	newObjNode.TypeDefinition = objType;
+	newObjNode.TypeDefinition = objType.getNodeId();
 	newObjNode.ParentNodeId = ObjectId::ObjectsFolder;
 	newObjNode.ReferenceTypeId = ReferenceId::Organizes;
 
@@ -38,7 +39,7 @@ Object::Object(OpcUa::NodeId nodeId,
 	   OpcUa::LocalizedText displayName,
 	   OpcUa::LocalizedText description,
 	   NodeManager * pNodeManager)
-: Node(nodeId, browseName, displayName, description, pNodeManager)
+: TypedNode(nodeId, browseName, displayName, description, pNodeManager)
 {
 	AddNodesItem newObjNode;
 	ObjectAttributes newObjAttrs;
@@ -60,17 +61,4 @@ Object::Object(OpcUa::NodeId nodeId,
 NodeClass Object::getNodeClass()
 {
 	return NodeClass::ObjectType;
-}
-
-void Object::setType(ObjectType * pType)
-{
-	AddReferencesItem typeRef;
-
-	typeRef.IsForward = true;
-	typeRef.SourceNodeId = this->getNodeId();
-	typeRef.TargetNodeId = pType->getNodeId();
-	typeRef.TargetNodeClass = pType->getNodeClass();
-	typeRef.ReferenceTypeId = ObjectId::HasTypeDefinition;
-
-	m_pNodeManager->addReferences(vector<AddReferencesItem>{typeRef});
 }

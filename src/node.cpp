@@ -1,8 +1,6 @@
 #include "node.h"
 #include "nodemanager.h"
 
-using namespace OpcUa;
-
 
 Node::Node(OpcUa::NodeId nodeId, OpcUa::LocalizedText browseName, OpcUa::LocalizedText displayName, OpcUa::LocalizedText description, NodeManager * pNodeManager)
 : m_NodeId(nodeId),
@@ -16,8 +14,7 @@ Node::Node(OpcUa::NodeId nodeId, OpcUa::LocalizedText browseName, OpcUa::Localiz
 
 /**
  * @Todo: delete Node from namespace on object destruction
- */
-Node::~Node()
+ */Node::~Node()
 {
 
 }
@@ -40,6 +37,12 @@ LocalizedText Node::getDisplayName()
 LocalizedText Node::getDescription()
 {
 	return m_Description;
+}
+
+void Node::addReference(OpcUa::NodeId source, OpcUa::NodeId target, OpcUa::NodeId referenceType, bool isForward)
+{
+	Reference newRef(source, target, referenceType, isForward, m_pNodeManager);
+	m_References.push_back(newRef);
 }
 
 

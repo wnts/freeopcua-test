@@ -6,6 +6,7 @@
 #include <opc/ua/protocol/nodeid.h>
 #include <opc/ua/model.h>
 #include "nodemanager.h"
+#include "reference.h"
 
 
 using namespace OpcUa;
@@ -21,6 +22,7 @@ class Node
 		virtual OpcUa::LocalizedText getBrowseName();
 		virtual OpcUa::LocalizedText getDisplayName();
 		virtual OpcUa::LocalizedText getDescription();
+		void addReference(OpcUa::NodeId source, OpcUa::NodeId target, OpcUa::NodeId referenceType, bool isForward);
 		virtual OpcUa::NodeClass getNodeClass() = 0;
 	protected:
 		NodeManager * m_pNodeManager;
@@ -29,7 +31,7 @@ class Node
 		OpcUa::LocalizedText m_BrowseName;
 		OpcUa::LocalizedText m_DisplayName;
 		OpcUa::LocalizedText m_Description;
-		std::vector<OpcUa::Model::Reference> references;
+		std::vector<Reference> m_References;
 
 };
 

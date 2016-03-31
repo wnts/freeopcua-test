@@ -13,23 +13,22 @@
 
 
 
-namespace OpcUa
+
+class OpcServer
 {
-	class OpcServer
-	{
-		friend class OpcUa::NodeManager;
-		public:
-      		OpcServer();
-      		explicit OpcServer(const std::string& configdDir);
-      		void Start(void);
-      		void Stop(void);
-      		void addNodeManager(OpcUa::NodeManager * pNodeManager);
-      		uint32_t AddNamespace(const std::string& NsUri);
-		private:
-      		Common::AddonsManager::UniquePtr pAddonsManager;
-      		Server::ServicesRegistry::SharedPtr pServiceRegistry;
-      		OpcUa::NodeManagementServices::SharedPtr pNodeManagementService;
-      		std::vector<OpcUa::NodeManager *> nodeManagers;
-      		bool bStarted = false;
-	};
-}
+	friend class NodeManager;
+	public:
+		OpcServer();
+		explicit OpcServer(const std::string& configdDir);
+		void Start(void);
+		void Stop(void);
+		void addNodeManager(NodeManager * pNodeManager);
+		uint32_t AddNamespace(const std::string& NsUri);
+	private:
+		Common::AddonsManager::UniquePtr pAddonsManager;
+		OpcUa::Server::ServicesRegistry::SharedPtr pServiceRegistry;
+		OpcUa::NodeManagementServices::SharedPtr pNodeManagementService;
+		std::vector<NodeManager *> nodeManagers;
+		bool bStarted = false;
+};
+
