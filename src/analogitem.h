@@ -1,16 +1,24 @@
 #ifndef SRC_ANALOGITEM_H_
 #define SRC_ANALOGITEM_H_
 
-#include "basedatavariable.h"
+#include <memory>
 
-class AnalogItem : public BaseDataVariable
+#include "basedatavariable.h"
+#include "property.h"
+#include "dataitem.h"
+
+class AnalogItem : public DataItem
 {
 	public:
 		AnalogItem(OpcUa::NodeId nodeId,
 					   OpcUa::LocalizedText browseName,
 					   OpcUa::LocalizedText displayName,
 					   OpcUa::LocalizedText description,
-					   NodeManager * pNodeManager);
+					   NodeManager * pNodeManager,
+					   OpcUa::NodeId dataType = ObjectId::Number);
+	protected:
+		std::shared_ptr<Property> pEURange;
+
 };
 
 

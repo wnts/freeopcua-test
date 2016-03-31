@@ -12,13 +12,10 @@ class Variable : public TypedNode
 			     OpcUa::LocalizedText browseName,
 			     OpcUa::LocalizedText displayName,
 			     OpcUa::LocalizedText description,
-			     NodeManager * pNodeManager);
+			     NodeManager * pNodeManager,
+				 OpcUa::NodeId dataType = ObjectId::BaseDataType);
 		virtual ~Variable();
 		OpcUa::NodeClass getNodeClass();
 };
-
-
-
-
 
 #endif /* SRC_VARIABLE_H_ */
