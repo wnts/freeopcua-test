@@ -13,10 +13,12 @@ TemperatureSensor::TemperatureSensor(NodeId nodeId, string name, NodeManager * p
 		 LocalizedText(name),
 		 LocalizedText(name),
 		 LocalizedText(name),
-		 TemperatureSensorTypeNodeId,
 		 pNodeManager)
 {
 	createTypes(pNodeManager);
+	setType(s_pObjType);
+	// create member Variable Temperature
+
 }
 
 TemperatureSensor::~TemperatureSensor()

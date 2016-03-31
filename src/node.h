@@ -22,13 +22,15 @@ class Node
 		virtual OpcUa::LocalizedText getDisplayName();
 		virtual OpcUa::LocalizedText getDescription();
 		virtual OpcUa::NodeClass getNodeClass() = 0;
+	protected:
+		NodeManager * m_pNodeManager;
 	private:
 		OpcUa::NodeId m_NodeId;
 		OpcUa::LocalizedText m_BrowseName;
 		OpcUa::LocalizedText m_DisplayName;
 		OpcUa::LocalizedText m_Description;
 		std::vector<OpcUa::Model::Reference> references;
-		NodeManager * m_pNodeManager;
+
 };
 
 
