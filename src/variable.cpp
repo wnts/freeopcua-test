@@ -3,6 +3,7 @@
 #include "variable.h"
 #include "typednode.h"
 #include "variabletype.h"
+#include "opcserver.h"
 
 using namespace std;
 
@@ -33,6 +34,22 @@ Variable::Variable(OpcUa::NodeId nodeId,
 
 Variable::~Variable()
 {
+
+}
+
+void Variable::setValue(OpcUa::Variant value)
+{
+	DataValue dataValue(value);
+
+	OpcUa::Services::SharedPtr pServices = m_pNodeManager->getServer()->getServices();
+	WriteValue wValue;
+	wValue.NodeId = getNodeId();
+	wValue.AttributeId = AttributeId::Value;
+	wValue.Value = dataValue;
+	pServices->Attributes()->Write({wValue});
+
+
+
 
 }
 

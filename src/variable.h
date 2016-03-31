@@ -15,6 +15,7 @@ class Variable : public TypedNode
 			     NodeManager * pNodeManager,
 				 OpcUa::NodeId dataType = ObjectId::BaseDataType);
 		virtual ~Variable();
+		void setValue(OpcUa::Variant value);
 		OpcUa::NodeClass getNodeClass();
 };
 

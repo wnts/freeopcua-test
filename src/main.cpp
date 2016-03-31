@@ -1,4 +1,7 @@
 #include <unistd.h>
+
+#include <thread>
+
 #include "opcserver.h"
 #include "nmtemperature.h"
 #include "temperaturesensor.h"
@@ -19,6 +22,13 @@ int main(void)
 	server.Start();
 	string tempSensorName = "TemperatureSensor1";
 	TemperatureSensor TemperatureSensor1(NodeId(tempSensorName, pMyNodeManager->getNamespaceIdx()), tempSensorName, pMyNodeManager);
+	for(int i = -100; i != 100; i++)
+	{
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+		TemperatureSensor1.setTemperature(i);
+	}
+
+
 
 
 	getchar();

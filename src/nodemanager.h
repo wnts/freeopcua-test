@@ -1,10 +1,3 @@
-/*
- * nodemanager.h
- *
- *  Created on: Mar 21, 2016
- *      Author: wouter
- */
-
 #ifndef SRC_NODEMANAGER_H_
 #define SRC_NODEMANAGER_H_
 #include <opc/ua/services/node_management.h>
@@ -15,6 +8,7 @@ class OpcServer;
 class NodeManager
 {
 	friend class OpcServer;
+	friend class Node;
 	public:
 		NodeManager(const std::string& nameSpaceURI);
 		virtual ~NodeManager();
@@ -24,6 +18,7 @@ class NodeManager
 		std::vector<OpcUa::StatusCode> addReferences(std::vector<OpcUa::AddReferencesItem> references);
 		virtual void afterStartup(OpcUa::NodeManagementServices::SharedPtr pNodeManagementService) = 0;
 		virtual void beforeShutdown(OpcUa::NodeManagementServices::SharedPtr pNodeManagementService) = 0;
+		OpcServer * getServer(void);
 	protected:
 		void setServer(OpcServer& server);
 	private:

@@ -39,3 +39,7 @@ void NodeManager::setServer(OpcServer& server)
 	pServer = &server;
 }
 
+OpcServer * NodeManager::getServer(void)
+{
+	return pServer;
+}

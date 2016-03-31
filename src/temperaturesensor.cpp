@@ -36,6 +36,11 @@ TemperatureSensor::~TemperatureSensor()
 
 }
 
+void TemperatureSensor::setTemperature(int temperature)
+{
+	m_pTemperature->setValue(temperature);
+}
+
 NodeId TemperatureSensor::getType(void)
 {
 	return s_pObjType->getNodeId();

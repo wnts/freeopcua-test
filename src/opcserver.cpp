@@ -57,7 +57,7 @@ void OpcServer::addNodeManager(NodeManager * pNodeManager)
 
 uint32_t OpcServer::AddNamespace(const string& NsUri)
 {
-  Node namespaceArray(pServiceRegistry->GetServer(), OpcUa::ObjectId::Server_NamespaceArray);
+  OpcUa::Node namespaceArray(pServiceRegistry->GetServer(), OpcUa::ObjectId::Server_NamespaceArray);
   std::vector<std::string> uris = namespaceArray.GetValue().As<std::vector<std::string>>();
   uint32_t index = uris.size() - 1;
   uris.push_back(NsUri);
@@ -78,6 +78,11 @@ void OpcServer::Start(void)
   }
 
   bStarted = true;
+}
+
+OpcUa::Services::SharedPtr OpcServer::getServices()
+{
+	return pServiceRegistry->GetServer();
 }
 
 void OpcServer::Stop(void)

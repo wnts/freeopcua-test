@@ -17,6 +17,7 @@
 class OpcServer
 {
 	friend class NodeManager;
+	friend class Node;
 	public:
 		OpcServer();
 		explicit OpcServer(const std::string& configdDir);
@@ -24,6 +25,7 @@ class OpcServer
 		void Stop(void);
 		void addNodeManager(NodeManager * pNodeManager);
 		uint32_t AddNamespace(const std::string& NsUri);
+		OpcUa::Services::SharedPtr getServices();
 	private:
 		Common::AddonsManager::UniquePtr pAddonsManager;
 		OpcUa::Server::ServicesRegistry::SharedPtr pServiceRegistry;
