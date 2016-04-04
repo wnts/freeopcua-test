@@ -32,10 +32,7 @@ Variable::Variable(OpcUa::NodeId nodeId,
 	pNodeManager->addNodes(vector<AddNodesItem>{newVarNode});
 }
 
-Variable::~Variable()
-{
-
-}
+Variable::~Variable(){}
 
 void Variable::setValue(OpcUa::Variant value)
 {

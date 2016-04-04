@@ -20,6 +20,7 @@ int main(void)
 	NmTemperature * pMyNodeManager = new NmTemperature();
 	server.addNodeManager(pMyNodeManager);
 	server.Start();
+
 	string tempSensorName = "TemperatureSensor1";
 	TemperatureSensor TemperatureSensor1(NodeId(tempSensorName, pMyNodeManager->getNamespaceIdx()), tempSensorName, pMyNodeManager);
 	for(int i = -100; i != 100; i++)

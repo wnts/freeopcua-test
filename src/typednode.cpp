@@ -28,10 +28,7 @@ TypedNode::TypedNode(OpcUa::NodeId nodeId,
 
 }
 
-TypedNode::~TypedNode()
-{
-
-}
+TypedNode::~TypedNode(){}
 
 
 TypeNode * TypedNode::getType()

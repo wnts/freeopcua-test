@@ -1,6 +1,7 @@
 #include "node.h"
 #include "nodemanager.h"
 
+using namespace std;
 
 Node::Node(OpcUa::NodeId nodeId, OpcUa::LocalizedText browseName, OpcUa::LocalizedText displayName, OpcUa::LocalizedText description, NodeManager * pNodeManager)
 : m_NodeId(nodeId),
@@ -39,10 +40,12 @@ LocalizedText Node::getDescription()
 	return m_Description;
 }
 
-void Node::addReference(OpcUa::NodeId source, OpcUa::NodeId target, OpcUa::NodeId referenceType, bool isForward)
+shared_ptr<Reference> Node::addReference(OpcUa::NodeId source, OpcUa::NodeId target, OpcUa::NodeId referenceType, bool isForward)
 {
-	Reference newRef(source, target, referenceType, isForward, m_pNodeManager);
-	m_References.push_back(newRef);
+	shared_ptr<Reference> pNewRef = make_shared<Reference>(source, target, referenceType, isForward, m_pNodeManager);
+	m_References.push_back(*pNewRef);
+
+	return pNewRef;
 }
 
 

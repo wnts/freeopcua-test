@@ -22,7 +22,7 @@ Reference::Reference(OpcUa::NodeId source, OpcUa::NodeId target, OpcUa::NodeId r
 }
 
 /**
- * @todo : remove reference in address space upon oject destruction
+ * @todo Remove reference in address space upon oject destruction
  */
 Reference::~Reference()
 {

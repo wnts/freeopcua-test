@@ -62,3 +62,5 @@ NodeClass Object::getNodeClass()
 {
 	return NodeClass::ObjectType;
 }
+
+Object::~Object(){}

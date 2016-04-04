@@ -11,18 +11,67 @@
 
 using namespace OpcUa;
 /**
- * Represents a Node in the address space.
+ * Abstract class representing an OPC Node in the address space.
  */
 class Node
 {
+	/**
+	 * Constructor.
+	 *
+	 * @param nodeId		The node ID of the new Node.
+	 * 						The Nodeid attribute of the OPC Node will be given this value.
+	 * @param browseName	The browse name of the new Node.
+	 * 						A Node's browsename does not need to be unique.
+	 * 						The Browsename attribute of the OPC Node wil be given this value.
+	 * @param displayName	Human readable name of the new Node.
+	 * 						The Displayname attribute of the OPC Node will be given this value.
+	 * @param description	Description of the new Node.
+	 * 						The Description attribute of the OPC Node will be given this value.
+	 * @param pNodeManager	Pointer to a Node Manager. The new Node will be placed in the namespace
+	 * 						managed by this Node Manager.
+	 *
+	 */
 	public:
-		Node(OpcUa::NodeId nodeId, OpcUa::LocalizedText browseName, OpcUa::LocalizedText displayName, OpcUa::LocalizedText description, NodeManager * pNodeManager);
+		Node(OpcUa::NodeId nodeId,
+			 OpcUa::LocalizedText browseName,
+			 OpcUa::LocalizedText displayName,
+			 OpcUa::LocalizedText description,
+			 NodeManager * pNodeManager);
+		/**
+		 * Destructor.
+		 * @todo	Remove node from address space upon object destruction.
+		 */
 		virtual ~Node();
+		/**
+		 * @return The Node Id of this node.
+		 */
 		virtual OpcUa::NodeId getNodeId();
+		/**
+		 * @return The Browsename attribute of this Node.
+		 */
 		virtual OpcUa::LocalizedText getBrowseName();
+		/**
+		 * @return The Displayname attribute of this Node.
+		 */
 		virtual OpcUa::LocalizedText getDisplayName();
+		/**
+		 * @return The description attribute of this Node.
+		 */
 		virtual OpcUa::LocalizedText getDescription();
-		void addReference(OpcUa::NodeId source, OpcUa::NodeId target, OpcUa::NodeId referenceType, bool isForward);
+		/**
+		 * Add a reference to this Node.
+		 *
+		 * @param	source			The Node Id of the source Node.
+		 * @param	target			The Node Id of the target Node.
+		 * @param	referenceType	The Node Id of the ReferenceType
+		 * @param	isForward		Determines whether the reference is forward or not.
+		 *
+		 * @return	A pointer to the newly created Reference.
+		 */
+		std::shared_ptr<Reference> addReference(OpcUa::NodeId source, OpcUa::NodeId target, OpcUa::NodeId referenceType, bool isForward);
+		/**
+		 * @return The Nodeclass attribute of this Node.
+		 */
 		virtual OpcUa::NodeClass getNodeClass() = 0;
 	protected:
 		NodeManager * m_pNodeManager;

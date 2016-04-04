@@ -2,7 +2,12 @@
 #define SRC_TYPEDNODE_H_
 #include "typenode.h"
 #include "nodemanager.h"
-
+/**
+ * Abstract class representing an OPC Node with a type.
+ *
+ * A Node with a type always has a HasTypeDefinition reference to an OPC type Node (%VariableType, %ObjectType, ...) *
+ * @sa TypeNode
+ */
 class TypedNode : public ::Node
 {
 	public:
@@ -17,7 +22,7 @@ class TypedNode : public ::Node
 				  OpcUa::LocalizedText description,
 				  TypeNode * pTypeNode,
 				  NodeManager * pNodeManager);
-		virtual ~TypedNode();
+		virtual ~TypedNode() = 0;
 		TypeNode * getType();
 		OpcUa::NodeId getTypeNodeId();
 
