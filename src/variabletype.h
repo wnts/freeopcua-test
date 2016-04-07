@@ -11,6 +11,8 @@ class VariableType : public TypeNode
 					 OpcUa::LocalizedText displayName,
 					 OpcUa::LocalizedText description,
 					 bool isAbstract,
+					 OpcUa::NodeId parentNode,
+					 OpcUa::NodeId parentReferenceType,
 					 NodeManager * pNodeManager);
 		OpcUa::NodeClass getNodeClass();
 	private:

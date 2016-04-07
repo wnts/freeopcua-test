@@ -7,23 +7,14 @@
 using namespace std;
 
 TypedNode::TypedNode(OpcUa::NodeId nodeId,
-		    		 OpcUa::LocalizedText browseName,
-					 OpcUa::LocalizedText displayName,
-					 OpcUa::LocalizedText description,
-					 NodeManager * pNodeManager)
-: Node(nodeId, browseName, displayName, description, pNodeManager)
-{
-
-}
-
-TypedNode::TypedNode(OpcUa::NodeId nodeId,
 					 OpcUa::LocalizedText browseName,
 					 OpcUa::LocalizedText displayName,
 					 OpcUa::LocalizedText description,
-					 TypeNode * pTypeNode,
+					 OpcUa::NodeId parentNode,
+					 OpcUa::NodeId parentReferenceType,
 					 NodeManager * pNodeManager)
-: Node(nodeId, browseName, displayName, description, pNodeManager),
-  m_pType(pTypeNode)
+
+: Node(nodeId, browseName, displayName, description, parentNode, parentReferenceType, pNodeManager)
 {
 
 }
@@ -31,9 +22,9 @@ TypedNode::TypedNode(OpcUa::NodeId nodeId,
 TypedNode::~TypedNode(){}
 
 
-TypeNode * TypedNode::getType()
+NodeId TypedNode::getType()
 {
-	return m_pType;
+	return m_Type;
 }
 
 void TypedNode::setType(NodeId type)
@@ -49,9 +40,3 @@ void TypedNode::setType(NodeId type)
 	m_pNodeManager->addReferences(vector<AddReferencesItem>{typeRef});
 
 }
-
-void TypedNode::setType(TypeNode * pTypeNode)
-{
-	setType(pTypeNode->getNodeId());
-}
-

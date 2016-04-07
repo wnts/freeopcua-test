@@ -3,19 +3,29 @@
 
 using namespace std;
 
-Node::Node(OpcUa::NodeId nodeId, OpcUa::LocalizedText browseName, OpcUa::LocalizedText displayName, OpcUa::LocalizedText description, NodeManager * pNodeManager)
+Node::Node(OpcUa::NodeId nodeId,
+		   OpcUa::LocalizedText browseName,
+		   OpcUa::LocalizedText displayName,
+		   OpcUa::LocalizedText description,
+		   OpcUa::NodeId parentNode,
+		   OpcUa::NodeId parentReferenceType,
+		   NodeManager * pNodeManager)
 : m_NodeId(nodeId),
   m_BrowseName(browseName),
   m_DisplayName(displayName),
   m_Description(description),
   m_pNodeManager(pNodeManager)
 {
-
+	/*
+	 * @Todo: this doesn't work
+	 */
+	addReference(parentNode, nodeId, parentReferenceType, true);
 }
 
 /**
- * @Todo: delete Node from namespace on object destruction
- */Node::~Node()
+ * @Todo delete Node from namespace on object destruction
+ */
+Node::~Node()
 {
 
 }

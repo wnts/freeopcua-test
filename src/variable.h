@@ -20,10 +20,12 @@ class Variable : public TypedNode
 		 * @param dataType The Node Id of the datatype node for this Variable.
 		 */
 		Variable(OpcUa::NodeId nodeId,
-			     OpcUa::LocalizedText browseName,
-			     OpcUa::LocalizedText displayName,
-			     OpcUa::LocalizedText description,
-			     NodeManager * pNodeManager,
+				 OpcUa::LocalizedText browseName,
+				 OpcUa::LocalizedText displayName,
+				 OpcUa::LocalizedText description,
+				 NodeManager * pNodeManager,
+				 OpcUa::NodeId parentNode,
+				 OpcUa::NodeId parentReferenceType,
 				 OpcUa::NodeId dataType = ObjectId::BaseDataType);
 		virtual ~Variable() = 0;
 		void setValue(OpcUa::Variant value);

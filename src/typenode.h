@@ -11,6 +11,8 @@ public:
 			 OpcUa::LocalizedText displayName,
 			 OpcUa::LocalizedText description,
 			 bool isAbstract,
+			 OpcUa::NodeId parentNode,
+			 OpcUa::NodeId parentReferenceType,
 			 NodeManager * pNodeManager);
 	protected:
 		bool m_isAbstract = false;

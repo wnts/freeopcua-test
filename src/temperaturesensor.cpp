@@ -9,17 +9,19 @@ using namespace std;
 using namespace OpcUa;
 
 string TemperatureSensorTypeName = "TemperatureSensorType";
-NodeId TemperatureSensorTypeNodeId(1001, 0);
+NodeId TemperatureSensorTypeNodeId(1001, 1);
 
 TemperatureSensor::TemperatureSensor(NodeId nodeId, string name, NodeManager * pNodeManager)
 : Object(nodeId,
 		 LocalizedText(name),
 		 LocalizedText(name),
 		 LocalizedText(name),
-		 pNodeManager)
+		 pNodeManager,
+		 ObjectId::ObjectsFolder,
+		 ReferenceId::Organizes)
 {
 	createTypes(pNodeManager);
-	setType(s_pObjType);
+	setType(s_pObjType->getNodeId());
 
 	// create member Variable Temperature
 	string varName = "Temperature";
@@ -27,8 +29,9 @@ TemperatureSensor::TemperatureSensor(NodeId nodeId, string name, NodeManager * p
 												   LocalizedText(varName),
 												   LocalizedText(varName),
 												   LocalizedText(varName),
-												   pNodeManager);
-	m_pTemperature->addReference(this->getNodeId(), m_pTemperature->getNodeId(), ReferenceId::HasComponent, true);
+												   pNodeManager,
+												   getNodeId(),
+												   ReferenceId::HasComponent);
 }
 
 TemperatureSensor::~TemperatureSensor()
@@ -55,12 +58,14 @@ NodeId TemperatureSensor::getType(void)
 void TemperatureSensor::createTypes(NodeManager * pNodeManager)
 {
 	// create TemperatureSensorType node (nodeclass ObjectType)
-	s_pObjType = new ObjectType(TemperatureSensorTypeNodeId,		// types go in namespace 0 (right?)
-				 LocalizedText(TemperatureSensorTypeName),
-				 LocalizedText(TemperatureSensorTypeName),
-				 LocalizedText(TemperatureSensorTypeName),
-				 false,
-				 pNodeManager);
+	s_pObjType = new ObjectType(TemperatureSensorTypeNodeId,		// types go in namespace 0 (right?) --> NO!!!
+				  	  	  	    LocalizedText(TemperatureSensorTypeName),
+								LocalizedText(TemperatureSensorTypeName),
+								LocalizedText(TemperatureSensorTypeName),
+								false,
+								ObjectId::BaseObjectType,
+								ReferenceId::HasSubtype,
+								pNodeManager);
 	// create Temperature variable instance declaration
 	// we do this the old way, for reasons described in notes.txt
 	string instDeclName = "Temperature";

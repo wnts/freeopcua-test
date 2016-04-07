@@ -15,6 +15,8 @@ class AnalogItem : public DataItem
 					   OpcUa::LocalizedText displayName,
 					   OpcUa::LocalizedText description,
 					   NodeManager * pNodeManager,
+					   OpcUa::NodeId parentNode,
+					   OpcUa::NodeId parentReferencetype,
 					   OpcUa::NodeId dataType = ObjectId::Number);
 	protected:
 		std::shared_ptr<Property> pEURange;

@@ -15,21 +15,17 @@ class TypedNode : public ::Node
 				  OpcUa::LocalizedText browseName,
 				  OpcUa::LocalizedText displayName,
 				  OpcUa::LocalizedText description,
+				  OpcUa::NodeId parentNode,
+				  OpcUa::NodeId parentReferenceType,
 				  NodeManager * pNodeManager);
-		TypedNode(OpcUa::NodeId nodeId,
-				  OpcUa::LocalizedText browseName,
-				  OpcUa::LocalizedText displayName,
-				  OpcUa::LocalizedText description,
-				  TypeNode * pTypeNode,
-				  NodeManager * pNodeManager);
+
 		virtual ~TypedNode() = 0;
-		TypeNode * getType();
+		OpcUa::NodeId getType();
 		OpcUa::NodeId getTypeNodeId();
 
 	protected:
 		void setType(NodeId type);
-		void setType(TypeNode * pTypeNode);
-		TypeNode * m_pType = NULL;
+		OpcUa::NodeId m_Type;
 };
 
 

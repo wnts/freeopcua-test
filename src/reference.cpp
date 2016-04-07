@@ -18,7 +18,8 @@ Reference::Reference(OpcUa::NodeId source, OpcUa::NodeId target, OpcUa::NodeId r
 	newRef.ReferenceTypeId = referenceType;
 	newRef.TargetNodeClass = NodeClass::Variable;
 
-	pNodeManager->addReferences(vector<AddReferencesItem>{newRef});
+	std::vector<OpcUa::StatusCode> res = pNodeManager->addReferences(vector<AddReferencesItem>{newRef});
+	res;
 }
 
 /**

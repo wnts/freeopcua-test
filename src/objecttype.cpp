@@ -7,8 +7,10 @@ ObjectType::ObjectType(OpcUa::NodeId nodeId,
 					   OpcUa::LocalizedText displayName,
 					   OpcUa::LocalizedText description,
 					   bool isAbstract,
+					   OpcUa::NodeId parentNode,
+					   OpcUa::NodeId parentReferenceType,
 					   NodeManager * pNodeManager)
-: TypeNode(nodeId, browseName, displayName, description, isAbstract, pNodeManager)
+: TypeNode(nodeId, browseName, displayName, description, isAbstract, parentNode, parentReferenceType, pNodeManager)
 {
 	AddNodesItem newObjTypeNode;
 	ObjectTypeAttributes newObjTypeNodeAttrs;

@@ -36,6 +36,8 @@ class Node
 			 OpcUa::LocalizedText browseName,
 			 OpcUa::LocalizedText displayName,
 			 OpcUa::LocalizedText description,
+			 OpcUa::NodeId parentNode,
+			 OpcUa::NodeId parentReferenceType,
 			 NodeManager * pNodeManager);
 		/**
 		 * Destructor.

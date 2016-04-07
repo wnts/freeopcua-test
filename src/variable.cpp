@@ -8,12 +8,14 @@
 using namespace std;
 
 Variable::Variable(OpcUa::NodeId nodeId,
-			       OpcUa::LocalizedText browseName,
-			       OpcUa::LocalizedText displayName,
-			       OpcUa::LocalizedText description,
-			       NodeManager * pNodeManager,
+		 	 	   OpcUa::LocalizedText browseName,
+				   OpcUa::LocalizedText displayName,
+				   OpcUa::LocalizedText description,
+				   NodeManager * pNodeManager,
+				   OpcUa::NodeId parentNode,
+				   OpcUa::NodeId parentReferenceType,
 				   OpcUa::NodeId dataType)
-: TypedNode(nodeId, browseName, displayName, description, pNodeManager)
+: TypedNode(nodeId, browseName, displayName, description, parentNode, parentReferenceType, pNodeManager)
 {
 	AddNodesItem newVarNode;
 	VariableAttributes newVarAttrs;
@@ -22,7 +24,6 @@ Variable::Variable(OpcUa::NodeId nodeId,
 	newVarNode.BrowseName = QualifiedName(browseName.Text, pNodeManager->getNamespaceIdx());
 	newVarNode.Class = NodeClass::Variable;
 
-
 	newVarAttrs.DisplayName = displayName;
 	newVarAttrs.Description = description;
 	newVarAttrs.Type = dataType;
@@ -30,6 +31,8 @@ Variable::Variable(OpcUa::NodeId nodeId,
 	newVarNode.Attributes = newVarAttrs;
 
 	pNodeManager->addNodes(vector<AddNodesItem>{newVarNode});
+	// todo this shouldn't be here
+	addReference(parentNode, nodeId, parentReferenceType, true);
 }
 
 Variable::~Variable(){}

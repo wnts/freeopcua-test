@@ -30,13 +30,9 @@ class Object : public TypedNode
 			   OpcUa::LocalizedText browseName,
 			   OpcUa::LocalizedText displayName,
 			   OpcUa::LocalizedText description,
-			   TypeNode& type,
-			   NodeManager * pNodeManager);
-		Object(OpcUa::NodeId nodeId,
-				OpcUa::LocalizedText browseName,
-			    OpcUa::LocalizedText displayName,
-			    OpcUa::LocalizedText description,
-			    NodeManager * pNodeManager);
+			   NodeManager * pNodeManager,
+			   OpcUa::NodeId parentNode,
+			   OpcUa::NodeId parentReferenceType);
 		virtual ~Object() = 0;
 		OpcUa::NodeClass getNodeClass();
 

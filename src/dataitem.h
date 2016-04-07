@@ -12,6 +12,8 @@ class DataItem : public BaseDataVariable
 				 OpcUa::LocalizedText displayName,
 				 OpcUa::LocalizedText description,
 				 NodeManager * pNodeManager,
+				 OpcUa::NodeId parentNode,
+				 OpcUa::NodeId parentReferenceType,
 				 OpcUa::NodeId dataType = ObjectId::BaseDataType);
 	protected:
 

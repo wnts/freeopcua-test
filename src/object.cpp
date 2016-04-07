@@ -11,9 +11,10 @@ Object::Object(OpcUa::NodeId nodeId,
 			   OpcUa::LocalizedText browseName,
 			   OpcUa::LocalizedText displayName,
 			   OpcUa::LocalizedText description,
-			   TypeNode& objType,
-			   NodeManager * pNodeManager)
-: TypedNode(nodeId, browseName, displayName, description, pNodeManager)
+			   NodeManager * pNodeManager,
+			   OpcUa::NodeId parentNode,
+			   OpcUa::NodeId parentReferenceType)
+: TypedNode(nodeId, browseName, displayName, description, parentNode, parentReferenceType, pNodeManager)
 
 {
 	AddNodesItem newObjNode;
@@ -22,40 +23,14 @@ Object::Object(OpcUa::NodeId nodeId,
 	newObjNode.RequestedNewNodeId = nodeId;
 	newObjNode.BrowseName = QualifiedName(browseName.Text, pNodeManager->getNamespaceIdx());
 	newObjNode.Class = NodeClass::Object;
-	newObjNode.TypeDefinition = objType.getNodeId();
-	newObjNode.ParentNodeId = ObjectId::ObjectsFolder;
-	newObjNode.ReferenceTypeId = ReferenceId::Organizes;
-
 	newObjAttrs.DisplayName = displayName;
 	newObjAttrs.Description = description;
 	newObjNode.Attributes = newObjAttrs;
 
 	// todo: add error handling when this fails
 	pNodeManager->addNodes(std::vector<AddNodesItem>{newObjNode});
-}
-
-Object::Object(OpcUa::NodeId nodeId,
-	   OpcUa::LocalizedText browseName,
-	   OpcUa::LocalizedText displayName,
-	   OpcUa::LocalizedText description,
-	   NodeManager * pNodeManager)
-: TypedNode(nodeId, browseName, displayName, description, pNodeManager)
-{
-	AddNodesItem newObjNode;
-	ObjectAttributes newObjAttrs;
-
-	newObjNode.RequestedNewNodeId = nodeId;
-	newObjNode.BrowseName = QualifiedName(browseName.Text, pNodeManager->getNamespaceIdx());
-	newObjNode.Class = NodeClass::Object;
-	newObjNode.ParentNodeId = ObjectId::ObjectsFolder;
-	newObjNode.ReferenceTypeId = ReferenceId::Organizes;
-
-	newObjAttrs.DisplayName = displayName;
-	newObjAttrs.Description = description;
-	newObjNode.Attributes = newObjAttrs;
-
-	// todo: add error handling when this fails
-	pNodeManager->addNodes(std::vector<AddNodesItem>{newObjNode});
+	// todo this shouldn't be here
+	addReference(parentNode, nodeId, parentReferenceType, true);
 }
 
 NodeClass Object::getNodeClass()
