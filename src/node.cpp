@@ -16,10 +16,7 @@ Node::Node(OpcUa::NodeId nodeId,
   m_Description(description),
   m_pNodeManager(pNodeManager)
 {
-	/*
-	 * @Todo: this doesn't work
-	 */
-	addReference(parentNode, nodeId, parentReferenceType, true);
+
 }
 
 /**
@@ -30,7 +27,7 @@ Node::~Node()
 
 }
 
-NodeId Node::getNodeId()
+NodeId Node::getNodeId() const
 {
 	return m_NodeId;
 }

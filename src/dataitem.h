@@ -13,9 +13,17 @@ class DataItem : public BaseDataVariable
 				 OpcUa::LocalizedText description,
 				 NodeManager * pNodeManager,
 				 OpcUa::NodeId parentNode,
-				 OpcUa::NodeId parentReferenceType,
-				 OpcUa::NodeId dataType = ObjectId::BaseDataType);
+				 OpcUa::NodeId parentReferenceType);
 	protected:
+		DataItem(OpcUa::NodeId nodeId,
+				 OpcUa::LocalizedText browseName,
+				 OpcUa::LocalizedText displayName,
+				 OpcUa::LocalizedText description,
+				 NodeManager * pNodeManager,
+				 OpcUa::NodeId parentNode,
+				 OpcUa::NodeId parentReferenceType,
+				 OpcUa::NodeId dataType,
+				 bool bSetType);
 
 };
 

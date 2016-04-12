@@ -4,6 +4,7 @@
 #include "nodemanager.h"
 #include "objecttype.h"
 #include "analogitem.h"
+#include "dataitem.h"
 
 using namespace std;
 using namespace OpcUa;
@@ -11,28 +12,36 @@ using namespace OpcUa;
 string TemperatureSensorTypeName = "TemperatureSensorType";
 NodeId TemperatureSensorTypeNodeId(1001, 1);
 
-TemperatureSensor::TemperatureSensor(NodeId nodeId, string name, NodeManager * pNodeManager)
-: Object(nodeId,
-		 LocalizedText(name),
-		 LocalizedText(name),
-		 LocalizedText(name),
-		 pNodeManager,
-		 ObjectId::ObjectsFolder,
-		 ReferenceId::Organizes)
+std::shared_ptr<AnalogItem> TemperatureSensor::s_pTemperatureInstDecl;
+
+TemperatureSensor::TemperatureSensor(OpcUa::NodeId nodeId,
+						  	  	  	 OpcUa::LocalizedText browseName,
+									 OpcUa::LocalizedText displayName,
+									 OpcUa::LocalizedText description,
+									 NodeManager * pNodeManager,
+									 OpcUa::NodeId parentNode,
+									 OpcUa::NodeId parentReferenceType)
+: BaseObject(nodeId, browseName, displayName, description, pNodeManager, parentNode, parentReferenceType, false)
 {
 	createTypes(pNodeManager);
 	setType(s_pObjType->getNodeId());
-
 	// create member Variable Temperature
-	string varName = "Temperature";
-	m_pTemperature =  std::make_shared<AnalogItem>(NodeId(varName, pNodeManager->getNamespaceIdx()),
-												   LocalizedText(varName),
-												   LocalizedText(varName),
-												   LocalizedText(varName),
-												   pNodeManager,
-												   getNodeId(),
-												   ReferenceId::HasComponent);
+	m_pTemperature = std::make_shared<AnalogItem>(NodeId(browseName.Text + "." + "Temperature", pNodeManager->getNamespaceIdx()),
+												  LocalizedText("Temperature"),
+												  LocalizedText("Temperature"),
+												  LocalizedText("Temperature"),
+												  pNodeManager,
+												  getNodeId(),
+												  ObjectId::HasComponent);
+	BaseDataVariable * pTest = new BaseDataVariable(NodeId("test", pNodeManager->getNamespaceIdx()),
+													LocalizedText("Test"),
+													LocalizedText("Test"),
+													LocalizedText("Test"),
+													pNodeManager,
+													getNodeId(),
+													ObjectId::HasComponent);
 }
+
 
 TemperatureSensor::~TemperatureSensor()
 {
@@ -58,7 +67,7 @@ NodeId TemperatureSensor::getType(void)
 void TemperatureSensor::createTypes(NodeManager * pNodeManager)
 {
 	// create TemperatureSensorType node (nodeclass ObjectType)
-	s_pObjType = new ObjectType(TemperatureSensorTypeNodeId,		// types go in namespace 0 (right?) --> NO!!!
+	s_pObjType = new ObjectType(TemperatureSensorTypeNodeId,
 				  	  	  	    LocalizedText(TemperatureSensorTypeName),
 								LocalizedText(TemperatureSensorTypeName),
 								LocalizedText(TemperatureSensorTypeName),
@@ -67,25 +76,16 @@ void TemperatureSensor::createTypes(NodeManager * pNodeManager)
 								ReferenceId::HasSubtype,
 								pNodeManager);
 	// create Temperature variable instance declaration
-	// we do this the old way, for reasons described in notes.txt
-	string instDeclName = "Temperature";
-	AddNodesItem temperatureInstDecl;
-	VariableAttributes temperatureInstDeclAttrs;
-
-	temperatureInstDecl.RequestedNewNodeId = NodeId(1002, 0);
-	temperatureInstDecl.BrowseName = QualifiedName(instDeclName, 0);
-	temperatureInstDecl.Class = NodeClass::Variable;
-	temperatureInstDecl.ParentNodeId = TemperatureSensorTypeNodeId;
-	temperatureInstDecl.ReferenceTypeId = ReferenceId::HasComponent;
-	temperatureInstDecl.TypeDefinition = ObjectId::AnalogItemType;
-
-	temperatureInstDeclAttrs.DisplayName = LocalizedText(instDeclName);
-	temperatureInstDeclAttrs.Type = ObjectId::Int32;
-	temperatureInstDeclAttrs.Rank = -1;
-	temperatureInstDeclAttrs.AccessLevel = (VariableAccessLevel) 3;
-	temperatureInstDeclAttrs.UserAccessLevel = (VariableAccessLevel) 3;
-	temperatureInstDecl.Attributes = temperatureInstDeclAttrs;
-	pNodeManager->addNodes(vector<AddNodesItem>{temperatureInstDecl});
+	if(!s_pTemperatureInstDecl)
+	{
+		s_pTemperatureInstDecl = std::make_shared<AnalogItem>(NodeId("Temperature", pNodeManager->getNamespaceIdx()),
+															  LocalizedText("Temperature"),
+															  LocalizedText("Temperature"),
+															  LocalizedText("Temperature"),
+															  pNodeManager,
+															  s_pObjType->getNodeId(),
+															  ObjectId::HasComponent);
+	}
 }
 
 

@@ -1,0 +1,67 @@
+GOAL
+**********
+A TypedNode C++ object, when instantiated, should do the following things:
+	1. Create it's own type node in the address space, if not present yet (ObjectType, VariableType)
+	2. Create the node representing the TypedNode object (a Variable, Object)
+	3. Create a HasTypeDefinition Reference from the node created in (2), to the node created in (1)
+	
+
+PROBLEM 1
+**********
+The creation of the node representing the TypedNode is done in a base class constructor specific for the NodeClass (BaseVariable, BaseObject, ...).
+Naturally, the creation of the HasTypeDefinition reference should also happen in the constructor of the TypedNode base class.
+However, the type node is created in the derived class' constructor, but the base class constructor is called before the derived class constructor. 
+This means the reference cannot be created yet because the type node (the target of the reference) hasn't been created yet. 
+==>SOLUTION 1: Create the HasTypeDefinition reference in the derived class constructor instead.
+
+PROBLEM 2
+**********
+SOLUTION 1 introduces a new problem. Consider the following OPC-UA type hierarchy:
+
+	BaseVariableType --> BaseDataVariableType --> DataItemType --> AnalogItemType
+
+The corresponding C++ class hierarchy would be:
+
+	Node --> TypedNode --> BaseVariable --> BaseDataVariable --> DataItem --> AnalogItem
+
+According to the above explanation (see GOAL), when you instantiate an AnalogItem C++ object, the following should happen
+	1. Create the AnalogItemType node in the address space (if not existing yet)
+	2. Create an AnalogItem object node in the address space
+	3. Create a HasTypeDefinition Reference from the AnalogItem object to the AnalogItemType node.
+However, since AnalogItem derives from DataItem, when you instantiate AnalogItem, DataItem's constructor is also called,
+which creates the DataItemType type node (if not existing yet) and adds a HasTypeDefinition Reference to this DataItemType type node.
+This happens in each constructor in the inheritance tree. 
+The result is that you get an AnalogItem node with HasTypeDefinition references to AnalogItemType, DataItemType, BaseDataVariableType and BaseVariableType. 
+Obviously there should only be a reference to the AnalogItemType Node.
+==>SOLUTION 2: 1. Add an argument of type bool with a default value (bSetType). This argument indicates whether the typednode being instantiated should 
+				  add a HasTypeDefinition reference. The default value for this argument is true.
+			   2. Derived classes should call the base class constructor with this argument set to false and add the HasTypeDefinition reference
+				  themself.			   
+			   
+PROBLEM 3
+***********
+SOLUTION 2 introduces a new problem: clients of the code can instantiate TypedNodes that will have no HasTypeDefinition reference
+by passing bSetType = false.
+SOLUTION 3: Make the constructor that takes the bSetType argument protected and 
+			add create an overloaded constructor that doesn't take the default parameter, put
+			delegates to the protected one with bSetType = true.
+			This way derived classes can still call the protected base constructor, as well as
+			provide an interface that hides the optional parameter.
+			
+
+				  
+
+
+	
+					
+
+
+
+			   
+			   
+
+
+
+
+
+

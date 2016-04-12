@@ -11,8 +11,17 @@ class BaseDataVariable : public Variable
 						 OpcUa::LocalizedText description,
 						 NodeManager * pNodeManager,
 						 OpcUa::NodeId parentNode,
+						 OpcUa::NodeId parentReferenceType);
+	protected:
+		BaseDataVariable(OpcUa::NodeId nodeId,
+						 OpcUa::LocalizedText browseName,
+						 OpcUa::LocalizedText displayName,
+						 OpcUa::LocalizedText description,
+						 NodeManager * pNodeManager,
+						 OpcUa::NodeId parentNode,
 						 OpcUa::NodeId parentReferenceType,
-						 OpcUa::NodeId dataType = ObjectId::BaseDataType);
+						 OpcUa::NodeId dataType,
+						 bool bSetType);
 };
 
 

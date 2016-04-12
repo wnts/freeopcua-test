@@ -47,7 +47,7 @@ class Node
 		/**
 		 * @return The Node Id of this node.
 		 */
-		virtual OpcUa::NodeId getNodeId();
+		virtual OpcUa::NodeId getNodeId() const;
 		/**
 		 * @return The Browsename attribute of this Node.
 		 */

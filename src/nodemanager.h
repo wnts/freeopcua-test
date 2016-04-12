@@ -1,5 +1,6 @@
 #ifndef SRC_NODEMANAGER_H_
 #define SRC_NODEMANAGER_H_
+#include <opc/ua/protocol/protocol_auto.h>
 #include <opc/ua/services/node_management.h>
 
 
@@ -18,6 +19,8 @@ class NodeManager
 		std::vector<OpcUa::StatusCode> addReferences(std::vector<OpcUa::AddReferencesItem> references);
 		virtual void afterStartup(OpcUa::NodeManagementServices::SharedPtr pNodeManagementService) = 0;
 		virtual void beforeShutdown(OpcUa::NodeManagementServices::SharedPtr pNodeManagementService) = 0;
+		void writeAttribute(OpcUa::WriteValue value);
+		OpcUa::DataValue readAttribute(OpcUa::ReadParameters readParam) const;
 		OpcServer * getServer(void);
 	protected:
 		void setServer(OpcServer& server);

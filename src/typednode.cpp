@@ -34,7 +34,8 @@ void TypedNode::setType(NodeId type)
 	typeRef.IsForward = true;
 	typeRef.SourceNodeId = this->getNodeId();
 	typeRef.TargetNodeId = type;
-	//typeRef.TargetNodeClass = pTypeNode->getNodeClass();
+	// they set this to DataType for every targetnodeclass in the SDK too.
+	typeRef.TargetNodeClass = NodeClass::DataType;
 	typeRef.ReferenceTypeId = ObjectId::HasTypeDefinition;
 
 	m_pNodeManager->addReferences(vector<AddReferencesItem>{typeRef});

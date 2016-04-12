@@ -26,10 +26,16 @@ class Variable : public TypedNode
 				 NodeManager * pNodeManager,
 				 OpcUa::NodeId parentNode,
 				 OpcUa::NodeId parentReferenceType,
-				 OpcUa::NodeId dataType = ObjectId::BaseDataType);
+				 OpcUa::NodeId dataType,
+				 bool bSetType);
 		virtual ~Variable() = 0;
 		void setValue(OpcUa::Variant value);
+		OpcUa::Variant getValue() const;
+		OpcUa::DataValue getData() const;
 		OpcUa::NodeClass getNodeClass();
+
+	protected:
+		//OpcUa::NodeId m_DataType;
 };
 
 #endif /* SRC_VARIABLE_H_ */

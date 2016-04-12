@@ -20,7 +20,8 @@ public:
 			 OpcUa::LocalizedText description,
 			 NodeManager * pNodeManager,
 			 OpcUa::NodeId parentNode,
-			 OpcUa::NodeId dataType = ObjectId::BaseDataType);
+			 OpcUa::NodeId dataType,
+			 bool mandatory = false);
 };
 
 
