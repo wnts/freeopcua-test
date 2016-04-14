@@ -17,5 +17,5 @@ This software package is documented with doxygen. (It is recommended to run doxy
 2. Implement Node::getChildren()
 
 ## Todo (longer term)
-2. Fix Issues (see Issues tab)3. 
+2. Fix Issues (see Issues tab)
 3. Merge into FreeOpcUa (fork then pull request)
