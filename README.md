@@ -12,7 +12,10 @@ to an OPC UA server that maps more closely to C++. In a nutshell:
 
 This software package is documented with doxygen. (It is recommended to run doxygen with graphviz enabled to generate nice graphs of the inheritance tree)
 
-## Todo
-1. Node deletion upon object destruction
-2. Fix Issues (see Issues tab)
+## Todo (short term)
+1. ~~Node deletion upon object destruction~~ (see Issues)
+2. Implement Node::getChildren()
+
+## Todo (longer term)
+2. Fix Issues (see Issues tab)3. 
 3. Merge into FreeOpcUa (fork then pull request)
