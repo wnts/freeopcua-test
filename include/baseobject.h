@@ -2,6 +2,7 @@
 #define SRC_BASEOBJECT_H_
 
 #include <stdint.h>
+#include <memory>
 #include "node.h"
 #include "objecttype.h"
 #include "nodemanager.h"
@@ -44,8 +45,11 @@ class BaseObject : public TypedNode
 				   OpcUa::NodeId parentNode,
 				   OpcUa::NodeId parentReferenceType,
 				   bool bSetType);
+	protected:
+		std::shared_ptr<ObjectType> s_pObjType;
 	private:
 		uint8_t m_eventNotifier = 0;
+
 };
 
 

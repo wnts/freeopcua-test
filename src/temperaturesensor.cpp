@@ -1,4 +1,5 @@
 #include <string>
+#include <memory>
 
 #include "temperaturesensor.h"
 #include "nodemanager.h"
@@ -67,14 +68,14 @@ NodeId TemperatureSensor::getType(void)
 void TemperatureSensor::createTypes(NodeManager * pNodeManager)
 {
 	// create TemperatureSensorType node (nodeclass ObjectType)
-	s_pObjType = new ObjectType(TemperatureSensorTypeNodeId,
-				  	  	  	    LocalizedText(TemperatureSensorTypeName),
-								LocalizedText(TemperatureSensorTypeName),
-								LocalizedText(TemperatureSensorTypeName),
-								false,
-								ObjectId::BaseObjectType,
-								ReferenceId::HasSubtype,
-								pNodeManager);
+	s_pObjType = make_shared<ObjectType>(TemperatureSensorTypeNodeId,
+										 LocalizedText(TemperatureSensorTypeName),
+										 LocalizedText(TemperatureSensorTypeName),
+										 LocalizedText(TemperatureSensorTypeName),
+										 false,
+										 ObjectId::BaseObjectType,
+										 ReferenceId::HasSubtype,
+										 pNodeManager);
 	// create Temperature variable instance declaration
 	if(!s_pTemperatureInstDecl)
 	{

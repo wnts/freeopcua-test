@@ -31,7 +31,6 @@ class TemperatureSensor : public BaseObject
 		std::shared_ptr<AnalogItem> m_pTemperature;
 		static std::shared_ptr<AnalogItem> s_pTemperatureInstDecl;
 		void createTypes(NodeManager * pNodeManager);
-		ObjectType * s_pObjType;
 
 };
 
