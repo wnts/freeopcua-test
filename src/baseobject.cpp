@@ -19,7 +19,7 @@ BaseObject::BaseObject(OpcUa::NodeId nodeId,
 					   OpcUa::NodeId parentReferenceType)
 : BaseObject(nodeId, browseName, displayName, description, pNodeManager, parentNode, parentReferenceType, false)
 {
-
+	setType(ObjectId::BaseObjectType);
 }
 
 BaseObject::BaseObject(OpcUa::NodeId nodeId,
