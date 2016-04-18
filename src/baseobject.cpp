@@ -17,7 +17,7 @@ BaseObject::BaseObject(OpcUa::NodeId nodeId,
 					   NodeManager * pNodeManager,
 					   OpcUa::NodeId parentNode,
 					   OpcUa::NodeId parentReferenceType)
-: BaseObject(nodeId, browseName, displayName, description, pNodeManager, parentNode, parentReferenceType, false)
+: BaseObject(nodeId, browseName, displayName, description, pNodeManager, parentNode, parentReferenceType, true)
 {
 
 }
@@ -41,6 +41,8 @@ BaseObject::BaseObject(OpcUa::NodeId nodeId,
 	newObjNode.Class = NodeClass::Object;
 	newObjNode.ParentNodeId = parentNode;
 	newObjNode.ReferenceTypeId = parentReferenceType;
+	if(bSetType)
+		newObjNode.TypeDefinition = ObjectId::BaseObjectType;
 	newObjAttrs.DisplayName = displayName;
 	newObjAttrs.Description = description;
 	newObjNode.Attributes = newObjAttrs;
