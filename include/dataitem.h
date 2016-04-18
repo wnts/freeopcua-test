@@ -14,6 +14,10 @@ class DataItem : public BaseDataVariable
 				 NodeManager * pNodeManager,
 				 OpcUa::NodeId parentNode,
 				 OpcUa::NodeId parentReferenceType);
+		DataItem(BaseVariable * pInstanceDeclaration,
+				 OpcUa::NodeId nodeId,
+				 NodeManager * pNodeManager,
+				 OpcUa::NodeId parentNode);
 	protected:
 		DataItem(OpcUa::NodeId nodeId,
 				 OpcUa::LocalizedText browseName,

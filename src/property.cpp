@@ -11,13 +11,28 @@ Property::Property(OpcUa::NodeId nodeId,
 				   OpcUa::NodeId parentNode,
 				   OpcUa::NodeId dataType,
 				   bool mandatory)
-: Variable(nodeId, browseName, displayName, description, pNodeManager, parentNode, ReferenceId::HasProperty, dataType, false)
+: BaseVariable(nodeId, browseName, displayName, description, pNodeManager, parentNode, ReferenceId::HasProperty, dataType, false)
 {
 	setType(ObjectId::PropertyType);
 	NodeId ModellingTarget = ObjectId::ModellingRule_Optional;
 	if(mandatory)
 		ModellingTarget = ObjectId::ModellingRule_Mandatory;
 	addReference(getNodeId(), ModellingTarget, ObjectId::HasModellingRule, true);
+
+}
+
+Property::Property(Property * pInstanceDeclaration,
+				   OpcUa::NodeId nodeId,
+		 	 	   NodeManager * pNodeManager,
+				   OpcUa::NodeId parentNode)
+: Property(nodeId,
+	  	   pInstanceDeclaration->getBrowseName(),
+		   pInstanceDeclaration->getDisplayName(),
+		   pInstanceDeclaration->getDescription(),
+		   pNodeManager,
+		   parentNode,
+		   ObjectId::HasComponent)
+{
 
 }
 

@@ -29,15 +29,5 @@ NodeId TypedNode::getType()
 
 void TypedNode::setType(NodeId type)
 {
-	AddReferencesItem typeRef;
-
-	typeRef.IsForward = true;
-	typeRef.SourceNodeId = this->getNodeId();
-	typeRef.TargetNodeId = type;
-	// they set this to DataType for every targetnodeclass in the SDK too.
-	typeRef.TargetNodeClass = NodeClass::DataType;
-	typeRef.ReferenceTypeId = ObjectId::HasTypeDefinition;
-
-	m_pNodeManager->addReferences(vector<AddReferencesItem>{typeRef});
-
+	addReference(getNodeId(), type, ObjectId::HasTypeDefinition);
 }

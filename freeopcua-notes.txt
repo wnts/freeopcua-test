@@ -1,3 +1,6 @@
+====================
+= 1. TYPE PROBLEM  =
+====================
 GOAL
 **********
 A TypedNode C++ object, when instantiated, should do the following things:
@@ -47,6 +50,39 @@ SOLUTION 3: Make the constructor that takes the bSetType argument protected and
 			delegates to the protected one with bSetType = true.
 			This way derived classes can still call the protected base constructor, as well as
 			provide an interface that hides the optional parameter.
+			
+			
+====================================
+= 2. INSTANCE DECLARATION PROBLEM  =
+====================================
+When a TypedNode is instantiated it creates it's own type node(s) in the address space.
+Part of this is to create objects, variables, properties that are part of the type definition: so called instance declarations.
+These instance declarations are objects, variables or properties that differ from actual
+instances by having a hierarchical reference to a type node (e.g. ObjectType) rather than another instance.
+
+For example, consider a class LoraNode. 
+When instantiated it will create the following type node (if not existing yet) in the address space
+
+LoraNodeType --hasProperty--> DevEUI	(1)
+
+Then it will create an instance of a LoraNodeType in the address space:
+
+MyLoraNode --hasProperty--> DevEUI		(2)
+
+The DevEUI Property node in (1) only differs from the one in (2) by:
+
+1. NodeId attribute
+2. The source of its parent reference
+
+We should add a new constructor that takes the following arguments: newNodeId, parentNodeId, parentReferenceType, pInstanceDeclaration
+This constructor uses the pInstanceDeclaration pointer to get the attribute values that are the same for both objects.
+
+
+	
+
+
+
+
 			
 
 				  

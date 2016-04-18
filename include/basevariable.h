@@ -11,7 +11,7 @@
  * classes that derive from this class. When such a class is instantiated, a corresponding
  * Variable node is created in the address space.
  */
-class Variable : public TypedNode
+class BaseVariable : public TypedNode
 {
 	public:
 		/**
@@ -19,23 +19,21 @@ class Variable : public TypedNode
 		 *
 		 * @param dataType The Node Id of the datatype node for this Variable.
 		 */
-		Variable(OpcUa::NodeId nodeId,
-				 OpcUa::LocalizedText browseName,
-				 OpcUa::LocalizedText displayName,
-				 OpcUa::LocalizedText description,
-				 NodeManager * pNodeManager,
-				 OpcUa::NodeId parentNode,
-				 OpcUa::NodeId parentReferenceType,
-				 OpcUa::NodeId dataType,
-				 bool bSetType);
-		virtual ~Variable() = 0;
+		BaseVariable(OpcUa::NodeId nodeId,
+					 OpcUa::LocalizedText browseName,
+					 OpcUa::LocalizedText displayName,
+					 OpcUa::LocalizedText description,
+					 NodeManager * pNodeManager,
+					 OpcUa::NodeId parentNode,
+					 OpcUa::NodeId parentReferenceType,
+					 OpcUa::NodeId dataType,
+					 bool bSetType);
+
+		virtual ~BaseVariable() = 0;
 		void setValue(OpcUa::Variant value);
 		OpcUa::Variant getValue() const;
 		OpcUa::DataValue getData() const;
 		OpcUa::NodeClass getNodeClass();
-
-	protected:
-		//OpcUa::NodeId m_DataType;
 };
 
 #endif /* SRC_VARIABLE_H_ */

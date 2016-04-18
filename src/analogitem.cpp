@@ -40,6 +40,21 @@ AnalogItem::AnalogItem(OpcUa::NodeId nodeId,
 										  ObjectId::Range);
 }
 
+AnalogItem::AnalogItem(BaseVariable * pInstanceDeclaration,
+					   OpcUa::NodeId nodeId,
+		 	 	 	   NodeManager * pNodeManager,
+					   OpcUa::NodeId parentNode)
+: AnalogItem(nodeId,
+		     pInstanceDeclaration->getBrowseName(),
+			 pInstanceDeclaration->getDisplayName(),
+			 pInstanceDeclaration->getDescription(),
+			 pNodeManager,
+			 parentNode,
+			 ObjectId::HasComponent)
+{
+
+}
+
 OpcUa::Variant AnalogItem::getEURange() const
 {
 	return pEURange->getValue();

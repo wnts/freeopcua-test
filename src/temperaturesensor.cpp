@@ -27,13 +27,10 @@ TemperatureSensor::TemperatureSensor(OpcUa::NodeId nodeId,
 	createTypes(pNodeManager);
 	setType(s_pObjType->getNodeId());
 	// create member Variable Temperature
-	m_pTemperature = std::make_shared<AnalogItem>(NodeId(browseName.Text + "." + "Temperature", pNodeManager->getNamespaceIdx()),
-												  LocalizedText("Temperature"),
-												  LocalizedText("Temperature"),
-												  LocalizedText("Temperature"),
+	m_pTemperature = std::make_shared<AnalogItem>(s_pTemperatureInstDecl.get(),
+												  NodeId(browseName.Text + "." + "Temperature", pNodeManager->getNamespaceIdx()),
 												  pNodeManager,
-												  getNodeId(),
-												  ObjectId::HasComponent);
+												  getNodeId());
 	BaseDataVariable * pTest = new BaseDataVariable(NodeId("test", pNodeManager->getNamespaceIdx()),
 													LocalizedText("Test"),
 													LocalizedText("Test"),

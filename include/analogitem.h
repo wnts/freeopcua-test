@@ -17,6 +17,10 @@ class AnalogItem : public DataItem
 				   NodeManager * pNodeManager,
 				   OpcUa::NodeId parentNode,
 				   OpcUa::NodeId parentReferencetype);
+		AnalogItem(BaseVariable * pInstanceDeclaration,
+				   OpcUa::NodeId nodeId,
+				   NodeManager * pNodeManager,
+				   OpcUa::NodeId parentNode);
 		OpcUa::Variant getEURange() const;
 		void setEURange(const OpcUa::Variant &value);
 		OpcUa::Variant getEngineeringUnits() const;

@@ -1,13 +1,13 @@
 #include <vector>
 
-#include "variable.h"
+#include "basevariable.h"
 #include "typednode.h"
 #include "variabletype.h"
 #include "opcserver.h"
 
 using namespace std;
 
-Variable::Variable(OpcUa::NodeId nodeId,
+BaseVariable::BaseVariable(OpcUa::NodeId nodeId,
 		 	 	   OpcUa::LocalizedText browseName,
 				   OpcUa::LocalizedText displayName,
 				   OpcUa::LocalizedText description,
@@ -39,12 +39,13 @@ Variable::Variable(OpcUa::NodeId nodeId,
 		setType(ObjectId::BaseDataVariableType);
 }
 
-Variable::~Variable(){}
+
+BaseVariable::~BaseVariable(){}
 
 /**
  * @todo Write overloaded version that takes server/source timestamps
  */
-void Variable::setValue(OpcUa::Variant value)
+void BaseVariable::setValue(OpcUa::Variant value)
 {
 	DataValue dataValue(value);
 	WriteValue wValue;
@@ -55,7 +56,7 @@ void Variable::setValue(OpcUa::Variant value)
 	m_pNodeManager->writeAttribute(wValue);
 }
 
-OpcUa::DataValue Variable::getData() const
+OpcUa::DataValue BaseVariable::getData() const
 {
 	ReadParameters readParam;
 	ReadValueId readId;
@@ -68,13 +69,13 @@ OpcUa::DataValue Variable::getData() const
 
 }
 
-OpcUa::Variant Variable::getValue() const
+OpcUa::Variant BaseVariable::getValue() const
 {
 	DataValue dataVal = getData();
 	return dataVal.Value;
 }
 
-OpcUa::NodeClass Variable::getNodeClass()
+OpcUa::NodeClass BaseVariable::getNodeClass()
 {
 	return NodeClass::Variable;
 }

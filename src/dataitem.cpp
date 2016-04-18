@@ -29,3 +29,18 @@ DataItem::DataItem(OpcUa::NodeId nodeId,
 		setType(ObjectId::DataItemType);
 }
 
+DataItem::DataItem(BaseVariable * pInstanceDeclaration,
+				   OpcUa::NodeId nodeId,
+		 	 	   NodeManager * pNodeManager,
+				   OpcUa::NodeId parentNode)
+: DataItem(nodeId,
+	  	   pInstanceDeclaration->getBrowseName(),
+		   pInstanceDeclaration->getDisplayName(),
+		   pInstanceDeclaration->getDescription(),
+		   pNodeManager,
+		   parentNode,
+		   ObjectId::HasComponent)
+{
+
+}
+

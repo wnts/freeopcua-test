@@ -19,7 +19,7 @@ add_library (freeopcuatest src/analogitem.cpp
                            src/reference.cpp
                            src/typednode.cpp
                            src/typenode.cpp
-                           src/variable.cpp)
+                           src/basevariable.cpp)
 
 add_executable(${EXE_NAME} src/main.cpp
                            src/nmtemperature.cpp
