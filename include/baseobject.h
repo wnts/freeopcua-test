@@ -46,7 +46,7 @@ class BaseObject : public TypedNode
 				   OpcUa::NodeId parentReferenceType,
 				   bool bSetType);
 	protected:
-		std::shared_ptr<ObjectType> s_pObjType;
+		static std::shared_ptr<ObjectType> s_pObjType;
 	private:
 		uint8_t m_eventNotifier = 0;
 

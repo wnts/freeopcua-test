@@ -8,6 +8,8 @@
 using namespace std;
 using namespace OpcUa;
 
+std::shared_ptr<ObjectType> BaseObject::s_pObjType;
+
 BaseObject::BaseObject(OpcUa::NodeId nodeId,
 					   OpcUa::LocalizedText browseName,
 					   OpcUa::LocalizedText displayName,
