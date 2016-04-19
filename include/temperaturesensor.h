@@ -2,6 +2,7 @@
 #define SRC_TEMPERATURESENSOR_H_
 #include <string>
 #include <memory>
+#include <time.h>
 
 #include "objecttype.h"
 #include "nodemanager.h"
@@ -23,7 +24,7 @@ class TemperatureSensor : public BaseObject
 						  OpcUa::NodeId parentReferenceType);
 
 		~TemperatureSensor();
-		void setTemperature(int temperature);
+		void setTemperature(int temperature, time_t sourceTimestamp = time(NULL));
 		OpcUa::NodeId getType();
 	protected:
 		bool s_createdTypes = false;

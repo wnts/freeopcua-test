@@ -1,5 +1,6 @@
 #ifndef SRC_VARIABLE_H_
 #define SRC_VARIABLE_H_
+#include <time.h>
 #include "node.h"
 #include "typednode.h"
 #include "variabletype.h"
@@ -30,7 +31,7 @@ class BaseVariable : public TypedNode
 					 bool bSetType);
 
 		virtual ~BaseVariable() = 0;
-		void setValue(OpcUa::Variant value);
+		void setValue(OpcUa::Variant value, time_t sourceTimeStamp = time(NULL));
 		OpcUa::Variant getValue() const;
 		OpcUa::DataValue getData() const;
 		OpcUa::NodeClass getNodeClass();

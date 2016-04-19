@@ -1,5 +1,6 @@
 #include <string>
 #include <memory>
+#include <time.h>
 
 #include "temperaturesensor.h"
 #include "nodemanager.h"
@@ -46,9 +47,9 @@ TemperatureSensor::~TemperatureSensor()
 
 }
 
-void TemperatureSensor::setTemperature(int temperature)
+void TemperatureSensor::setTemperature(int temperature, time_t sourceTimestamp)
 {
-	m_pTemperature->setValue(temperature);
+	m_pTemperature->setValue(temperature, sourceTimestamp);
 }
 
 NodeId TemperatureSensor::getType(void)

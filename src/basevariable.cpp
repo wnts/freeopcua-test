@@ -1,4 +1,5 @@
 #include <vector>
+#include <time.h>
 
 #include "basevariable.h"
 #include "typednode.h"
@@ -42,14 +43,12 @@ BaseVariable::BaseVariable(OpcUa::NodeId nodeId,
 
 BaseVariable::~BaseVariable(){}
 
-/**
- * @todo Write overloaded version that takes server/source timestamps
- */
-void BaseVariable::setValue(OpcUa::Variant value)
+void BaseVariable::setValue(OpcUa::Variant value, time_t sourceTimeStamp)
 {
 	DataValue dataValue(value);
 	WriteValue wValue;
 
+	dataValue.SetSourceTimestamp(DateTime::FromTimeT(sourceTimeStamp));
 	wValue.NodeId = getNodeId();
 	wValue.AttributeId = AttributeId::Value;
 	wValue.Value = dataValue;
