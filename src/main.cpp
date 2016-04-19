@@ -26,8 +26,9 @@ int main(void)
 												LocalizedText(name),
 												LocalizedText(name),
 												pMyNodeManager,
-												ObjectId::ObjectsFolder,
+												ObjectId::Null,
 												ReferenceId::Organizes);
+	pTemperatureSensor1->addReference(ObjectId::ObjectsFolder, pTemperatureSensor1->getNodeId(), ReferenceId::Organizes, NodeClass::Object);
 
 
 

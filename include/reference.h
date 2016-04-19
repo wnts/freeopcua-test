@@ -18,7 +18,12 @@ class Reference {
 	 * 							exists.
 	 */
 	public:
-		Reference(OpcUa::NodeId source, OpcUa::NodeId target, OpcUa::NodeId referenceType, bool isForward, NodeManager * pNodeManager);
+		Reference(OpcUa::NodeId source,
+				  OpcUa::NodeId target,
+				  OpcUa::NodeId referenceType,
+				  bool isForward,
+				  OpcUa::NodeClass targetNodeClass,
+				  NodeManager * pNodeManager);
 		~Reference();
 	private:
 		bool m_isForward;

@@ -5,7 +5,12 @@
 using namespace std;
 using namespace OpcUa;
 
-Reference::Reference(OpcUa::NodeId source, OpcUa::NodeId target, OpcUa::NodeId referenceType, bool isForward, NodeManager * pNodeManager)
+Reference::Reference(OpcUa::NodeId source,
+					 OpcUa::NodeId target,
+					 OpcUa::NodeId referenceType,
+					 bool isForward,
+					 OpcUa::NodeClass targetNodeClass,
+					 NodeManager * pNodeManager)
 : m_isForward(isForward),
   m_referenceType(referenceType),
   m_Source(source),
@@ -16,10 +21,9 @@ Reference::Reference(OpcUa::NodeId source, OpcUa::NodeId target, OpcUa::NodeId r
 	newRef.SourceNodeId = source;
 	newRef.TargetNodeId = target;
 	newRef.ReferenceTypeId = referenceType;
-	newRef.TargetNodeClass = NodeClass::Variable;
+	newRef.TargetNodeClass = targetNodeClass;
 
 	std::vector<OpcUa::StatusCode> res = pNodeManager->addReferences(vector<AddReferencesItem>{newRef});
-	res;
 }
 
 /**

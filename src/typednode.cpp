@@ -29,5 +29,5 @@ NodeId TypedNode::getType()
 
 void TypedNode::setType(NodeId type)
 {
-	addReference(getNodeId(), type, ObjectId::HasTypeDefinition);
+	addReference(getNodeId(), type, ObjectId::HasTypeDefinition, NodeClass::ObjectType);
 }

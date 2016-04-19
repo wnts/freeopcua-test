@@ -70,10 +70,17 @@ class Node
 		 *
 		 * @return	A pointer to the newly created Reference.
 		 */
-		std::shared_ptr<Reference> addReference(OpcUa::NodeId source, OpcUa::NodeId target, OpcUa::NodeId referenceType, bool isForward = true);
+		std::shared_ptr<Reference> addReference(OpcUa::NodeId source,
+												OpcUa::NodeId target,
+												OpcUa::NodeId referenceType,
+												OpcUa::NodeClass targetNodeClass,
+												bool isForward = true);
 		/**
 		 * @return The Nodeclass attribute of this Node.
 		 */
+		std::shared_ptr<Reference> addReference(Node * pTarget,
+												OpcUa::NodeId referenceType,
+												bool isForward = true);
 		virtual OpcUa::NodeClass getNodeClass() = 0;
 	protected:
 		NodeManager * m_pNodeManager;
