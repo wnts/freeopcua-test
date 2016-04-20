@@ -17,8 +17,8 @@ class TemperatureSensor : public BaseObject
 	public:
 		TemperatureSensor(OpcUa::NodeId nodeId,
 						  OpcUa::LocalizedText browseName,
+						  OpcUa::LocalizedText displayName,
 						  OpcUa::LocalizedText description,
-						  OpcUa::LocalizedText,
 						  NodeManager * pNodeManager,
 						  OpcUa::NodeId parentNode,
 						  OpcUa::NodeId parentReferenceType);

@@ -7,6 +7,7 @@
 #include "temperaturesensor.h"
 #include "objecttype.h"
 #include "variabletype.h"
+#include "folder.h"
 
 using namespace OpcUa;
 using namespace std;
@@ -22,13 +23,21 @@ int main(void)
 	server.Start();
 	std::string name = "TemperatureSensor1";
 	TemperatureSensor * pTemperatureSensor1 = new TemperatureSensor(NodeId(name, pMyNodeManager->getNamespaceIdx()),
-												LocalizedText(name),
-												LocalizedText(name),
-												LocalizedText(name),
-												pMyNodeManager,
-												ObjectId::Null,
-												ReferenceId::Organizes);
+																	LocalizedText(name),
+																	LocalizedText(name),
+																	LocalizedText(name),
+																	pMyNodeManager,
+																	ObjectId::Null,
+																	ReferenceId::Organizes);
 	pTemperatureSensor1->addReference(ObjectId::ObjectsFolder, pTemperatureSensor1->getNodeId(), ReferenceId::Organizes, NodeClass::Object);
+	Folder * pFolder = new Folder(NodeId("MyFolder", pMyNodeManager->getNamespaceIdx()),
+								  LocalizedText("MyFolder"),
+								  LocalizedText("MyFolder"),
+								  LocalizedText("MyFolder"),
+								  pMyNodeManager,
+								  ObjectId::RootFolder,
+								  ReferenceId::Organizes);
+
 
 
 

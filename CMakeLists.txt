@@ -10,6 +10,7 @@ aux_source_directory(src SRC_LIST)
 add_library (freeopcuatest src/analogitem.cpp
                            src/basedatavariable.cpp
                            src/baseobject.cpp
+                           src/folder.cpp
                            src/dataitem.cpp
                            src/node.cpp
                            src/nodemanager.cpp
